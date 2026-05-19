@@ -1445,24 +1445,26 @@
       </div>
     </div>
     <div class="contact-form">
+      <form action="https://formspree.io/f/xaqknlbk" method="POST">
       <div class="form-group">
         <label class="form-label"><span class="jp">お名前</span><span class="en" style="display:none">NAME</span></label>
-        <input type="text" class="form-input">
+        <input type="text" class="form-input" name="name">
       </div>
       <div class="form-group">
         <label class="form-label"><span class="jp">メールアドレス</span><span class="en" style="display:none">EMAIL</span></label>
-        <input type="email" class="form-input">
+        <input type="email" class="form-input" name="email">
       </div>
       <div class="form-group">
         <label class="form-label"><span class="jp">お問い合わせ種別</span><span class="en" style="display:none">INQUIRY TYPE</span></label>
-        <input type="text" class="form-input jp" placeholder="素材 / お取引 / 製品 / その他">
+        <input type="text" class="form-input jp" name="inquiry" placeholder="素材 / お取引 / 製品 / その他">
         <input type="text" class="form-input en" style="display:none" placeholder="Materials / Business / Products / Other">
       </div>
       <div class="form-group">
         <label class="form-label"><span class="jp">メッセージ</span><span class="en" style="display:none">MESSAGE</span></label>
-        <textarea class="form-textarea"></textarea>
+        <textarea class="form-textarea" name="message"></textarea>
       </div>
-      <button class="form-btn"><span class="jp">送信する →</span><span class="en" style="display:none">Send Message →</span></button>
+      <button class="form-btn" type="submit"><span class="jp">送信する →</span><span class="en" style="display:none">Send Message →</span></button>
+      </form>
     </div>
   </div>
 </section>
