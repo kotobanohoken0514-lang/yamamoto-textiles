@@ -1,0 +1,1505 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>山本繊維 / Yamamoto Textiles</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Noto+Serif+JP:wght@200;300;400&family=Noto+Sans+JP:wght@200;300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0a0a08;
+    --deep: #111109;
+    --mud: #1a1710;
+    --gold: #c9a96e;
+    --gold-light: #e8d5a3;
+    --silk: #f5f0e8;
+    --silk-dim: #d4cfc4;
+    --teal: #2a6b6b;
+    --teal-light: #4a9b9b;
+    --white: #faf8f4;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--silk);
+    font-family: 'Noto Serif JP', serif;
+    font-weight: 200;
+    overflow-x: hidden;
+  }
+
+  /* NAVIGATION */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 24px 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(to bottom, rgba(10,10,8,0.95), transparent);
+  }
+
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-weight: 300;
+    letter-spacing: 4px;
+    color: var(--gold);
+    text-decoration: none;
+  }
+
+  .nav-logo span {
+    display: block;
+    font-size: 10px;
+    letter-spacing: 6px;
+    color: var(--silk-dim);
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: 200;
+    margin-top: 2px;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 36px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--silk-dim);
+    text-decoration: none;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 11px;
+    letter-spacing: 3px;
+    font-weight: 200;
+    transition: color 0.3s;
+  }
+
+  .nav-links a:hover { color: var(--gold); }
+
+  .lang-toggle {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .lang-btn {
+    background: none;
+    border: none;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--silk-dim);
+    cursor: pointer;
+    padding: 0;
+    transition: color 0.3s;
+  }
+
+  .lang-btn.active, .lang-btn:hover { color: var(--gold); }
+
+  .lang-divider {
+    width: 1px;
+    height: 12px;
+    background: rgba(201,169,110,0.3);
+  }
+
+  /* LANGUAGE */
+  .en { display: none; }
+
+  /* HERO */
+  .hero {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    padding: 0 10%;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 70% 50%, rgba(42,107,107,0.15) 0%, transparent 60%),
+      radial-gradient(ellipse at 20% 80%, rgba(201,169,110,0.08) 0%, transparent 50%),
+      var(--black);
+  }
+
+  .hero-texture {
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c9a96e' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+
+  .hero-line {
+    position: absolute;
+    top: 0; bottom: 0;
+    left: 58%;
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, rgba(201,169,110,0.3), transparent);
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 560px;
+  }
+
+  .hero-label {
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 10px;
+    letter-spacing: 6px;
+    color: var(--gold);
+    font-weight: 200;
+    margin-bottom: 32px;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.3s forwards;
+  }
+
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(52px, 7vw, 88px);
+    font-weight: 300;
+    line-height: 1.05;
+    color: var(--white);
+    margin-bottom: 8px;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.5s forwards;
+  }
+
+  .hero-title-jp {
+    font-family: 'Noto Serif JP', serif;
+    font-size: clamp(18px, 2.5vw, 28px);
+    font-weight: 200;
+    color: var(--gold);
+    letter-spacing: 8px;
+    margin-bottom: 40px;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.7s forwards;
+  }
+
+  .hero-desc {
+    font-size: 13px;
+    line-height: 2.2;
+    color: var(--silk-dim);
+    font-weight: 200;
+    max-width: 420px;
+    margin-bottom: 48px;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.9s forwards;
+  }
+
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 16px;
+    color: var(--gold);
+    text-decoration: none;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 11px;
+    letter-spacing: 4px;
+    font-weight: 200;
+    opacity: 0;
+    animation: fadeUp 1s ease 1.1s forwards;
+    transition: gap 0.3s;
+  }
+
+  .hero-cta:hover { gap: 24px; }
+
+  .hero-cta::after {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 1px;
+    background: var(--gold);
+    transition: width 0.3s;
+  }
+
+  .hero-cta:hover::after { width: 60px; }
+
+  .hero-scroll {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    opacity: 0;
+    animation: fadeUp 1s ease 1.5s forwards;
+  }
+
+  .hero-scroll span {
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 9px;
+    letter-spacing: 4px;
+    color: var(--silk-dim);
+    font-weight: 200;
+  }
+
+  .scroll-line {
+    width: 1px;
+    height: 48px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+    animation: scrollPulse 2s ease infinite;
+  }
+
+  /* PHILOSOPHY */
+  .philosophy {
+    padding: 140px 10%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+    border-top: 1px solid rgba(201,169,110,0.15);
+  }
+
+  .section-label {
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 9px;
+    letter-spacing: 6px;
+    color: var(--gold);
+    font-weight: 200;
+    margin-bottom: 24px;
+  }
+
+  .philosophy-text h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(36px, 4vw, 52px);
+    font-weight: 300;
+    line-height: 1.2;
+    color: var(--white);
+    margin-bottom: 40px;
+  }
+
+  .philosophy-text h2 em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .philosophy-text p {
+    font-size: 13px;
+    line-height: 2.4;
+    color: var(--silk-dim);
+    font-weight: 200;
+    margin-bottom: 20px;
+  }
+
+  .philosophy-card {
+    background: var(--deep);
+    border: 1px solid rgba(201,169,110,0.2);
+    padding: 48px;
+    position: relative;
+  }
+
+  .philosophy-card::before {
+    content: '';
+    position: absolute;
+    top: -1px; left: 40px;
+    width: 60px;
+    height: 1px;
+    background: var(--teal);
+  }
+
+  .stat-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+
+  .stat-item {
+    border-left: 1px solid rgba(201,169,110,0.2);
+    padding-left: 20px;
+  }
+
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 36px;
+    font-weight: 300;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .stat-label {
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--silk-dim);
+    font-weight: 200;
+    line-height: 1.6;
+  }
+
+  /* PRODUCTS */
+  .products {
+    padding: 120px 10%;
+    background: var(--deep);
+  }
+
+  .products-header {
+    margin-bottom: 64px;
+  }
+
+  .products-header h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(32px, 4vw, 48px);
+    font-weight: 300;
+    color: var(--white);
+  }
+
+  .products-header h2 span {
+    display: block;
+    font-family: 'Noto Serif JP', serif;
+    font-size: 16px;
+    font-weight: 200;
+    color: var(--gold);
+    letter-spacing: 6px;
+    margin-bottom: 8px;
+  }
+
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+  }
+
+  .product-card {
+    background: var(--mud);
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+  }
+
+  .product-card:hover .product-overlay { opacity: 1; }
+
+  .product-img {
+    width: 100%;
+    aspect-ratio: 3/4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .product-img-silk { background: linear-gradient(135deg, #1a1710 0%, #2a2318 40%, #1a1a12 100%); }
+  .product-img-teal { background: linear-gradient(135deg, #0d2020 0%, #1a3535 40%, #0d2828 100%); }
+  .product-img-gold { background: linear-gradient(135deg, #1a1408 0%, #2a200c 40%, #1a1808 100%); }
+
+  .thread-visual {
+    width: 80%;
+    height: 80%;
+    position: relative;
+  }
+
+  .thread-circle {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid;
+    animation: threadRotate 8s linear infinite;
+  }
+
+  .tc1 { width: 100%; height: 100%; top: 0; left: 0; border-color: rgba(201,169,110,0.3); }
+  .tc2 { width: 70%; height: 70%; top: 15%; left: 15%; border-color: rgba(201,169,110,0.2); animation-duration: 12s; animation-direction: reverse; }
+  .tc3 { width: 40%; height: 40%; top: 30%; left: 30%; border-color: rgba(201,169,110,0.4); animation-duration: 6s; }
+  .tc-teal1 { border-color: rgba(74,155,155,0.4); }
+  .tc-teal2 { border-color: rgba(74,155,155,0.25); }
+  .tc-teal3 { border-color: rgba(74,155,155,0.5); }
+  .tc-gold1 { border-color: rgba(232,213,163,0.4); }
+  .tc-gold2 { border-color: rgba(232,213,163,0.25); }
+  .tc-gold3 { border-color: rgba(232,213,163,0.5); }
+
+  .thread-dot {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--gold);
+  }
+
+  .thread-dot-teal { background: var(--teal-light); }
+  .thread-dot-bright { background: var(--gold-light); }
+
+  .product-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(10,10,8,0.88);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.4s;
+    padding: 32px;
+  }
+
+  .product-overlay p {
+    font-size: 11px;
+    line-height: 2;
+    color: var(--silk-dim);
+    font-weight: 200;
+    text-align: center;
+  }
+
+  .product-info {
+    padding: 24px 28px;
+    border-top: 1px solid rgba(201,169,110,0.1);
+  }
+
+  .product-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-weight: 300;
+    color: var(--white);
+    margin-bottom: 4px;
+  }
+
+  .product-sub {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 11px;
+    font-weight: 200;
+    color: var(--gold);
+    letter-spacing: 3px;
+    margin-bottom: 12px;
+  }
+
+  .product-desc {
+    font-size: 11px;
+    line-height: 1.8;
+    color: var(--silk-dim);
+    font-weight: 200;
+  }
+
+  /* MATERIAL */
+  .material {
+    padding: 140px 10%;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .material-bg {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 80% 50%, rgba(42,107,107,0.1) 0%, transparent 60%);
+  }
+
+  .material-inner {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 100px;
+    align-items: start;
+  }
+
+  .material h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(36px, 4vw, 52px);
+    font-weight: 300;
+    color: var(--white);
+    line-height: 1.2;
+    margin-bottom: 32px;
+  }
+
+  .material h2 em { font-style: italic; color: var(--teal-light); }
+
+  .material-lead {
+    font-size: 13px;
+    line-height: 2.4;
+    color: var(--silk-dim);
+    font-weight: 200;
+  }
+
+  .process-step {
+    display: grid;
+    grid-template-columns: 48px 1fr;
+    gap: 24px;
+    padding: 32px 0;
+    border-bottom: 1px solid rgba(201,169,110,0.1);
+  }
+
+  .process-step:last-child { border-bottom: none; }
+
+  .process-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 32px;
+    font-weight: 300;
+    color: rgba(201,169,110,0.3);
+    line-height: 1;
+  }
+
+  .process-content h4 {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--gold);
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+  }
+
+  .process-content p {
+    font-size: 12px;
+    line-height: 2;
+    color: var(--silk-dim);
+    font-weight: 200;
+  }
+
+  /* STORY */
+  .story {
+    padding: 140px 10%;
+    background: var(--deep);
+  }
+
+  .story-inner {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .story h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(36px, 5vw, 64px);
+    font-weight: 300;
+    color: var(--white);
+    line-height: 1.2;
+    margin-bottom: 16px;
+  }
+
+  .story h2 em { font-style: italic; color: var(--gold); }
+
+  .story-sub {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 14px;
+    font-weight: 200;
+    color: var(--silk-dim);
+    letter-spacing: 6px;
+    margin-bottom: 48px;
+  }
+
+  .story-divider {
+    width: 60px;
+    height: 1px;
+    background: var(--gold);
+    margin: 0 auto 48px;
+  }
+
+  .story p {
+    font-size: 14px;
+    line-height: 2.6;
+    color: var(--silk-dim);
+    font-weight: 200;
+    margin-bottom: 24px;
+    text-align: left;
+  }
+
+  .story-quote {
+    border-left: 2px solid var(--gold);
+    padding: 24px 32px;
+    margin: 48px 0;
+    text-align: left;
+  }
+
+  .story-quote p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-style: italic;
+    color: var(--gold-light);
+    line-height: 1.8;
+    margin: 0;
+  }
+
+  /* CONTACT */
+  .contact {
+    padding: 140px 10%;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .contact-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 30% 70%, rgba(201,169,110,0.06) 0%, transparent 50%),
+      var(--black);
+  }
+
+  .contact-inner {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  .contact h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(36px, 4vw, 52px);
+    font-weight: 300;
+    color: var(--white);
+    margin-bottom: 16px;
+    line-height: 1.2;
+  }
+
+  .contact-lead {
+    font-size: 13px;
+    line-height: 2.2;
+    color: var(--silk-dim);
+    margin-bottom: 40px;
+    font-weight: 200;
+  }
+
+  .contact-info { display: flex; flex-direction: column; gap: 0; }
+
+  .contact-item {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    padding: 20px 0;
+    border-bottom: 1px solid rgba(201,169,110,0.1);
+  }
+
+  .contact-item:last-child { border-bottom: none; }
+
+  .contact-item-label {
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 9px;
+    letter-spacing: 4px;
+    color: var(--gold);
+    font-weight: 200;
+    min-width: 80px;
+    padding-top: 2px;
+  }
+
+  .contact-item-value {
+    font-size: 13px;
+    color: var(--silk-dim);
+    line-height: 1.8;
+    font-weight: 200;
+  }
+
+  .contact-form { display: flex; flex-direction: column; gap: 20px; }
+
+  .form-group { display: flex; flex-direction: column; gap: 8px; }
+
+  .form-label {
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 10px;
+    letter-spacing: 3px;
+    color: var(--gold);
+    font-weight: 200;
+  }
+
+  .form-input, .form-textarea {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(201,169,110,0.3);
+    padding: 12px 0;
+    color: var(--silk);
+    font-family: 'Noto Serif JP', serif;
+    font-size: 13px;
+    font-weight: 200;
+    outline: none;
+    transition: border-color 0.3s;
+  }
+
+  .form-input:focus, .form-textarea:focus { border-bottom-color: var(--gold); }
+  .form-textarea { resize: none; height: 100px; }
+
+  .form-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 16px;
+    background: transparent;
+    border: 1px solid rgba(201,169,110,0.4);
+    color: var(--gold);
+    padding: 16px 32px;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 11px;
+    letter-spacing: 4px;
+    font-weight: 200;
+    cursor: pointer;
+    transition: all 0.3s;
+    align-self: flex-start;
+    margin-top: 8px;
+  }
+
+  .form-btn:hover {
+    background: rgba(201,169,110,0.1);
+    border-color: var(--gold);
+    gap: 24px;
+  }
+
+  /* FOOTER */
+  footer {
+    padding: 48px 10%;
+    border-top: 1px solid rgba(201,169,110,0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 16px;
+    font-weight: 300;
+    letter-spacing: 4px;
+    color: var(--gold);
+  }
+
+  .footer-logo span {
+    display: block;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 9px;
+    letter-spacing: 4px;
+    color: var(--silk-dim);
+    font-weight: 200;
+    margin-top: 4px;
+  }
+
+  .footer-copy {
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 10px;
+    color: rgba(212,207,196,0.4);
+    font-weight: 200;
+    letter-spacing: 2px;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 1; }
+  }
+
+  @keyframes threadRotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  /* SALON SECTION */
+  .salon {
+    padding: 140px 10%;
+    background: var(--black);
+    position: relative;
+    overflow: hidden;
+    border-top: 1px solid rgba(201,169,110,0.15);
+  }
+
+  .salon-bg-line {
+    position: absolute;
+    top: 0; bottom: 0;
+    left: 50%;
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, rgba(201,169,110,0.08), transparent);
+    pointer-events: none;
+  }
+
+  .salon-header {
+    max-width: 640px;
+    margin-bottom: 80px;
+  }
+
+  .salon-header h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(36px, 4vw, 56px);
+    font-weight: 300;
+    line-height: 1.15;
+    color: var(--white);
+    margin-bottom: 24px;
+  }
+
+  .salon-header h2 em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .salon-header p {
+    font-size: 13px;
+    line-height: 2.4;
+    color: var(--silk-dim);
+    font-weight: 200;
+    max-width: 540px;
+  }
+
+  /* Floor label badge */
+  .floor-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 32px;
+  }
+
+  .floor-badge-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 40px;
+    font-weight: 300;
+    color: var(--gold);
+    line-height: 1;
+  }
+
+  .floor-badge-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .floor-badge-text span:first-child {
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 9px;
+    letter-spacing: 5px;
+    color: var(--gold);
+    font-weight: 200;
+  }
+
+  .floor-badge-text span:last-child {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 13px;
+    letter-spacing: 3px;
+    color: var(--silk-dim);
+    font-weight: 200;
+  }
+
+  /* Three-column offerings */
+  .salon-offerings {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    margin-bottom: 80px;
+  }
+
+  .offering-card {
+    background: var(--deep);
+    padding: 48px 36px;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.4s;
+  }
+
+  .offering-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(to right, transparent, var(--gold), transparent);
+    opacity: 0;
+    transition: opacity 0.4s;
+  }
+
+  .offering-card:hover { background: var(--mud); }
+  .offering-card:hover::after { opacity: 1; }
+
+  .offering-icon {
+    width: 48px;
+    height: 48px;
+    margin-bottom: 28px;
+    position: relative;
+  }
+
+  .offering-icon svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .offering-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: rgba(201,169,110,0.4);
+    margin-bottom: 16px;
+    display: block;
+  }
+
+  .offering-title {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 17px;
+    font-weight: 300;
+    color: var(--white);
+    letter-spacing: 2px;
+    margin-bottom: 6px;
+  }
+
+  .offering-title-en {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 12px;
+    font-weight: 300;
+    color: var(--gold);
+    letter-spacing: 3px;
+    margin-bottom: 20px;
+    display: block;
+  }
+
+  .offering-divider {
+    width: 32px;
+    height: 1px;
+    background: rgba(201,169,110,0.3);
+    margin-bottom: 20px;
+  }
+
+  .offering-desc {
+    font-size: 12px;
+    line-height: 2.2;
+    color: var(--silk-dim);
+    font-weight: 200;
+    margin-bottom: 24px;
+  }
+
+  .offering-items {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .offering-items li {
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: rgba(212,207,196,0.5);
+    font-weight: 200;
+    padding-left: 16px;
+    position: relative;
+  }
+
+  .offering-items li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: rgba(201,169,110,0.4);
+  }
+
+  /* Thread swatch samples row */
+  .salon-threads {
+    background: var(--deep);
+    border: 1px solid rgba(201,169,110,0.12);
+    padding: 56px 48px;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 64px;
+    align-items: center;
+    margin-bottom: 80px;
+  }
+
+  .threads-label h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(24px, 3vw, 36px);
+    font-weight: 300;
+    color: var(--white);
+    line-height: 1.3;
+    margin-bottom: 16px;
+  }
+
+  .threads-label h3 em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .threads-label p {
+    font-size: 12px;
+    line-height: 2.2;
+    color: var(--silk-dim);
+    font-weight: 200;
+    margin-bottom: 20px;
+  }
+
+  .threads-label .price-note {
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 10px;
+    letter-spacing: 3px;
+    color: rgba(201,169,110,0.6);
+    font-weight: 200;
+  }
+
+  .thread-swatches {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 16px;
+  }
+
+  .swatch {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    transition: transform 0.3s;
+  }
+
+  .swatch:hover { transform: translateY(-4px); }
+
+  .swatch-circle {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    position: relative;
+    transition: box-shadow 0.3s;
+  }
+
+  .swatch:hover .swatch-circle {
+    box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+  }
+
+  .swatch-circle::after {
+    content: '';
+    position: absolute;
+    inset: 3px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .sc-kuro { background: radial-gradient(circle at 35% 35%, #2a2a26, #0a0a08); }
+  .sc-cha  { background: radial-gradient(circle at 35% 35%, #5c3a1e, #2a1a0a); }
+  .sc-hana { background: radial-gradient(circle at 35% 35%, #6b2a3a, #2a0d14); }
+  .sc-ao   { background: radial-gradient(circle at 35% 35%, #1a4a5c, #0a1e2a); }
+  .sc-nori { background: radial-gradient(circle at 35% 35%, #2a4a2a, #0d1e0d); }
+
+  .swatch-name {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--silk-dim);
+    font-weight: 200;
+    text-align: center;
+  }
+
+  .swatch-name-en {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 9px;
+    letter-spacing: 2px;
+    color: rgba(212,207,196,0.4);
+    text-align: center;
+  }
+
+  /* Reservation CTA strip */
+  .salon-cta {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 48px;
+    align-items: center;
+    padding: 48px;
+    border: 1px solid rgba(201,169,110,0.2);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .salon-cta::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 80px;
+    height: 1px;
+    background: var(--teal);
+  }
+
+  .salon-cta-text h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(22px, 2.5vw, 32px);
+    font-weight: 300;
+    color: var(--white);
+    margin-bottom: 8px;
+  }
+
+  .salon-cta-text p {
+    font-size: 12px;
+    line-height: 2;
+    color: var(--silk-dim);
+    font-weight: 200;
+  }
+
+  .salon-cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 16px;
+    border: 1px solid rgba(201,169,110,0.4);
+    color: var(--gold);
+    padding: 18px 36px;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 11px;
+    letter-spacing: 4px;
+    font-weight: 200;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: all 0.3s;
+    background: transparent;
+    cursor: pointer;
+  }
+
+  .salon-cta-btn:hover {
+    background: rgba(201,169,110,0.08);
+    border-color: var(--gold);
+    gap: 24px;
+  }
+
+  @media (max-width: 900px) {
+    .salon-offerings { grid-template-columns: 1fr; }
+    .salon-threads { grid-template-columns: 1fr; gap: 40px; }
+    .thread-swatches { grid-template-columns: repeat(5, 1fr); }
+    .salon-cta { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-logo">
+    YAMAMOTO TEXTILES
+    <span class="jp">山本繊維</span>
+    <span class="en" style="display:none">Yamamoto Textiles</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#philosophy"><span class="jp">哲学</span><span class="en" style="display:none">PHILOSOPHY</span></a></li>
+    <li><a href="#salon"><span class="jp">直販サロン</span><span class="en" style="display:none">SALON</span></a></li>
+    <li><a href="#story"><span class="jp">ストーリー</span><span class="en" style="display:none">STORY</span></a></li>
+    <li><a href="#contact"><span class="jp">お問い合わせ</span><span class="en" style="display:none">CONTACT</span></a></li>
+  </ul>
+  <div class="lang-toggle">
+    <button class="lang-btn active" onclick="setLang('jp')">JP</button>
+    <div class="lang-divider"></div>
+    <button class="lang-btn" onclick="setLang('en')">EN</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-texture"></div>
+  <div class="hero-line"></div>
+  <div class="hero-content">
+    <p class="hero-label"><span class="jp">奄美大島 ― 大島紬 ― 撚糸の技術</span><span class="en" style="display:none">AMAMI OSHIMA — OSHIMA TSUMUGI — THE ART OF TWISTED SILK</span></p>
+    <h1 class="hero-title">The Thread<br>of Tradition</h1>
+    <p class="hero-title-jp"><span class="jp">糸に宿る、伝統の魂</span><span class="en" style="display:none">Soul Woven in Silk</span></p>
+    <div class="hero-desc">
+      <p class="jp">大島紬用の絹糸製造から生まれた、唯一無二の素材。<br>長年の技術と連携が生み出す、独自の黒を持つ反物。<br>撚糸の技術と奄美との関係が生み出す、本物の価値。</p>
+      <p class="en" style="display:none">From the craft of twisted silk thread for Oshima Tsumugi, unique materials are born. Fabric with a distinctive black born from years of craft and collaboration. Authentic value created through the art of yarn-twisting and a deep relationship with Amami.</p>
+    </div>
+    <a href="#products" class="hero-cta"><span class="jp">素材を見る</span><span class="en" style="display:none">Explore Materials</span></a>
+  </div>
+  <div class="hero-scroll">
+    <span>SCROLL</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- PHILOSOPHY -->
+<section class="philosophy" id="philosophy">
+  <div class="philosophy-text">
+    <p class="section-label"><span class="jp">— 私たちについて / ABOUT</span><span class="en" style="display:none">— ABOUT YAMAMOTO TEXTILES</span></p>
+    <h2><em><span class="jp">本物</span><span class="en" style="display:none">Authentic</span></em><br>
+      <span class="jp" style="font-family:'Noto Serif JP';font-size:clamp(20px,2.5vw,32px);font-weight:200;color:var(--silk)">の素材だけが持つ力</span>
+      <span class="en" style="display:none;font-family:'Cormorant Garamond';font-size:clamp(28px,3vw,42px);font-weight:300;color:var(--silk)"> materials carry true power</span>
+    </h2>
+    <p class="jp">山本繊維は、大島紬に特化した撚糸工場として、奄美大島・鹿児島の織元や染色職人とともに歩んできました。福岡を拠点に、大島紬用の撚糸加工を本業としながら、奄美の染色職人との連携により生まれた素材を、新たな形へと展開する挑戦を今始めています。</p>
+    <p class="en" style="display:none">Yamamoto Textiles is a yarn-twisting factory specializing in Oshima Tsumugi, working alongside weavers and dye craftspeople across Amami Oshima and Kagoshima. Based in Fukuoka, with yarn-twisting as our core, we are now beginning a new challenge — bringing the materials born through collaboration with Amami's artisans into new forms.</p>
+    <p class="jp">奄美大島の染色職人との長年の連携から生まれた反物は、既製品では出せない独自の黒と色彩を持っています。その色がどこから来るのか——それは長い時間をかけて積み上げてきた技術と関係の中にあります。</p>
+    <p class="en" style="display:none">The fabric born through years of collaboration with Amami Oshima's dye craftspeople carries a distinctive black and depth of color that mass production cannot replicate. Where that color comes from — it lives within techniques and relationships built over a long time.</p>
+  </div>
+  <div>
+    <div class="philosophy-card">
+      <div class="stat-grid">
+        <div class="stat-item">
+          <div class="stat-num">100<span style="font-size:18px">%</span></div>
+          <div class="stat-label jp">天然素材<br>絹糸</div>
+          <div class="stat-label en" style="display:none">Natural Silk<br>Materials</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num" style="font-size:24px;padding-top:6px">大島紬</div>
+          <div class="stat-label jp">専門<br>撚糸工場</div>
+          <div class="stat-label en" style="display:none">Specialized<br>Yarn Factory</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">独自<span style="font-size:16px">の黒</span></div>
+          <div class="stat-label jp">長年の技術<br>が生む色</div>
+          <div class="stat-label en" style="display:none">A Black Born<br>from Craft</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">BtoC</div>
+          <div class="stat-label jp">新たな<br>展開へ</div>
+          <div class="stat-label en" style="display:none">New Direct<br>to Consumer</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MATERIAL PROCESS -->
+<section class="material" id="material">
+  <div class="material-bg"></div>
+  <div class="material-inner">
+    <div>
+      <p class="section-label"><span class="jp">— 素材の背景 / MATERIAL STORY</span><span class="en" style="display:none">— THE MATERIAL STORY</span></p>
+      <h2 class="jp">糸から始まる、<br><em>すべての</em>価値</h2>
+      <h2 class="en" style="display:none">Every value<br>begins with<br><em>the thread</em></h2>
+      <p class="material-lead jp" style="margin-top:24px">山本繊維の強みは、大島紬に特化した撚糸技術と、奄美大島・鹿児島の織元・染色職人との深い連携にあります。撚糸という工程を通じて、糸は大島紬としての表情を持ち始める。奄美の自然と職人の技が生む色彩を、私たちは新たな形へと昇華させます。</p>
+      <p class="material-lead en" style="display:none;margin-top:24px">Yamamoto Textiles' strength lies in its yarn-twisting expertise specialized for Oshima Tsumugi, and deep partnerships with weavers and dye craftspeople across Amami Oshima and Kagoshima. Through yarn-twisting, mere thread transforms into the material for Oshima Tsumugi — a living art form.</p>
+    </div>
+    <div>
+      <div class="process-step">
+        <div class="process-num">01</div>
+        <div class="process-content">
+          <h4>撚糸 — YARN TWISTING</h4>
+          <p class="jp">山本繊維独自の撚糸技術。生糸に適度なテンションをかけることで、大島紬特有の光沢と強度を生み出す。</p>
+          <p class="en" style="display:none">Yamamoto's proprietary yarn-twisting technique. By applying precise tension to raw silk, we create the distinctive luster and strength of Oshima Tsumugi.</p>
+        </div>
+      </div>
+      <div class="process-step">
+        <div class="process-num">02</div>
+        <div class="process-content">
+          <h4>黒 — THE BLACK</h4>
+          <p class="jp">山本繊維の反物が持つ、独自の黒。長年の取引の中で生まれたこの色は、既製品では出せない深みと静けさを持っています。その工程は、時間をかけて積み上げてきた技術の結晶です。</p>
+          <p class="en" style="display:none">A distinctive black unique to Yamamoto Textiles' fabric. Born through years of craft and trade, this color carries a depth and stillness that ready-made products cannot replicate — the crystallization of accumulated technique.</p>
+        </div>
+      </div>
+      <div class="process-step">
+        <div class="process-num">03</div>
+        <div class="process-content">
+          <h4>草木染 — PLANT DYEING</h4>
+          <p class="jp">奄美大島に生息する植物を使った草木染め。季節と自然の恵みが生む、二つとして同じ色がない繊細な色彩。</p>
+          <p class="en" style="display:none">Plant-based dyeing using flora native to Amami Oshima. Delicate hues shaped by the seasons — no two are ever the same.</p>
+        </div>
+      </div>
+      <div class="process-step">
+        <div class="process-num">04</div>
+        <div class="process-content">
+          <h4 class="jp">新たな価値へ — NEW VALUE</h4>
+          <h4 class="en" style="display:none">NEW VALUE</h4>
+          <p class="jp">伝統素材を礼服・香り袋・アクセサリーへと昇華。着物のルールを超えた、現代人の暮らしに寄り添う新しい形。</p>
+          <p class="en" style="display:none">Elevating traditional materials into ceremonial dress, fragrance sachets, and accessories. New forms that integrate into modern life beyond kimono conventions.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SALON / DIRECT SALES SPACE -->
+<section class="salon" id="salon">
+  <div class="salon-bg-line"></div>
+
+  <div class="salon-header">
+    <p class="section-label"><span class="jp">— 2階直販スペース / THE SALON</span><span class="en" style="display:none">— 2F DIRECT SALES SALON</span></p>
+
+    <div class="floor-badge">
+      <div class="floor-badge-num">2F</div>
+      <div class="floor-badge-text">
+        <span class="jp">FITTING SALON &amp; GALLERY</span>
+        <span class="en" style="display:none">FITTING SALON &amp; GALLERY</span>
+        <span class="jp">完全予約制・直販スペース</span>
+        <span class="en" style="display:none">By Appointment · Direct Sales</span>
+      </div>
+    </div>
+
+    <h2>
+      <span class="jp">工場から、<br>あなたの手へ<em>直接</em></span>
+      <span class="en" style="display:none">From the Factory<br>Direct to <em>Your Hands</em></span>
+    </h2>
+    <p class="jp" style="margin-top:24px">これまで卸のみでお届けしてきた大島紬の素材を、はじめて個人のお客様へ直接お届けするスペースです。糸・反物・反物から生まれたプロダクト、そして職人の技が凝縮されたアクセサリーまで。素材と直接向き合う時間を、どうぞ。</p>
+    <p class="en" style="display:none" style="margin-top:24px">For the first time, the Oshima Tsumugi materials we have always sold wholesale are available directly to individual customers. From yarn to fabric, fabric-derived products, and handcrafted accessories — take your time to encounter these materials in person.</p>
+  </div>
+
+  <!-- Three offering pillars -->
+  <div class="salon-offerings">
+
+    <!-- 01 Yarn -->
+    <div class="offering-card">
+      <span class="offering-num">01</span>
+      <div class="offering-icon">
+        <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="24" cy="24" r="20" stroke="rgba(201,169,110,0.4)" stroke-width="0.8"/>
+          <circle cx="24" cy="24" r="13" stroke="rgba(201,169,110,0.25)" stroke-width="0.8"/>
+          <circle cx="24" cy="24" r="6" stroke="rgba(201,169,110,0.5)" stroke-width="0.8"/>
+          <circle cx="24" cy="24" r="2" fill="rgba(201,169,110,0.7)"/>
+          <line x1="24" y1="4" x2="24" y2="11" stroke="rgba(201,169,110,0.3)" stroke-width="0.8"/>
+          <line x1="44" y1="24" x2="37" y2="24" stroke="rgba(201,169,110,0.3)" stroke-width="0.8"/>
+        </svg>
+      </div>
+      <div class="offering-title jp">絹糸 少量販売</div>
+      <div class="offering-title en" style="display:none">Silk Yarn · Small Lot</div>
+      <span class="offering-title-en">YOURSILK</span>
+      <div class="offering-divider"></div>
+      <p class="offering-desc jp">これまで卸取引のみだった大島紬用の絹糸を、少量から個人の方へ。草木染・泥染めなど奄美の色彩をそのままお手元に。あなたの想像を広げてくれる糸が、ここにあります。</p>
+      <p class="offering-desc en" style="display:none">Oshima Tsumugi silk yarn, previously wholesale-only, now available in small quantities for individuals. Bring the colors of Amami — plant-dyed, mud-dyed — directly to your hands. A thread that expands your imagination.</p>
+      <ul class="offering-items">
+        <li class="jp">草木染め絹糸（少量巻き）</li>
+        <li class="en" style="display:none">Plant-dyed silk yarn (small spools)</li>
+        <li class="jp">泥染め絹糸</li>
+        <li class="en" style="display:none">Mud-dyed silk yarn</li>
+        <li class="jp">カッチ染め（独自の黒）</li>
+        <li class="en" style="display:none">Kachi-dyed (distinctive black)</li>
+        <li class="jp">サンプルセット有り</li>
+        <li class="en" style="display:none">Sample sets available</li>
+      </ul>
+    </div>
+
+    <!-- 02 Coming Soon -->
+    <div class="offering-card" style="display:flex;flex-direction:column;justify-content:center;align-items:flex-start;min-height:360px;">
+      <span class="offering-num">02</span>
+      <div class="offering-icon">
+        <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="24" cy="24" r="18" stroke="rgba(201,169,110,0.2)" stroke-width="0.8" stroke-dasharray="4 4"/>
+          <circle cx="24" cy="24" r="3" fill="rgba(201,169,110,0.3)"/>
+        </svg>
+      </div>
+      <div class="offering-title jp">近日公開</div>
+      <div class="offering-title en" style="display:none">Coming Soon</div>
+      <span class="offering-title-en" style="color:rgba(201,169,110,0.35)">COMING SOON</span>
+      <div class="offering-divider"></div>
+      <p class="offering-desc jp">大島紬の反物が、着物ではない新しいかたちへ。山本繊維が長年培ってきた素材が、現代の暮らしに寄り添うプロダクトとして生まれ変わります。</p>
+      <p class="offering-desc en" style="display:none">Oshima Tsumugi fabric, reimagined beyond kimono. The materials Yamamoto Textiles has cultivated over the years, reborn as products for modern life.</p>
+    </div>
+
+    <!-- 03 Accessories -->
+    <div class="offering-card">
+      <span class="offering-num">03</span>
+      <div class="offering-icon">
+        <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <ellipse cx="24" cy="24" rx="14" ry="14" stroke="rgba(201,169,110,0.35)" stroke-width="0.8"/>
+          <ellipse cx="24" cy="24" rx="8" ry="8" stroke="rgba(201,169,110,0.25)" stroke-width="0.8"/>
+          <circle cx="24" cy="10" r="2.5" fill="rgba(201,169,110,0.5)"/>
+          <circle cx="38" cy="24" r="2.5" fill="rgba(201,169,110,0.3)"/>
+          <circle cx="24" cy="38" r="2.5" fill="rgba(201,169,110,0.4)"/>
+          <circle cx="10" cy="24" r="2.5" fill="rgba(201,169,110,0.35)"/>
+          <line x1="24" y1="7.5" x2="24" y2="4" stroke="rgba(201,169,110,0.3)" stroke-width="0.8"/>
+        </svg>
+      </div>
+      <div class="offering-title jp">絹糸アクセサリー</div>
+      <div class="offering-title en" style="display:none">Silk Accessories</div>
+      <span class="offering-title-en">ACCESSORIES</span>
+      <div class="offering-divider"></div>
+      <p class="offering-desc jp">山本繊維の糸から生まれた、もうひとつの物語。奄美の色彩を日常に纏う絹糸アクセサリーは、<em style="font-style:italic;color:var(--gold)">itoya rin</em> の手から生まれています。草木染・泥染めが生む唯一無二の色合いは、二つとして同じものがありません。</p>
+      <p class="offering-desc en" style="display:none">Another story born from Yamamoto Textiles' thread. Silk accessories to carry Amami's colors into everyday life — each piece made by the hands of <em style="font-style:italic;color:var(--gold)">itoya rin</em>. Every piece unique — no two dyed the same.</p>
+      <ul class="offering-items">
+        <li class="jp">絹糸ブローチ</li>
+        <li class="en" style="display:none">Silk yarn brooches</li>
+        <li class="jp">泥染めアクセサリー</li>
+        <li class="en" style="display:none">Mud-dyed accessories</li>
+        <li class="jp">シルクコード ネックレス</li>
+        <li class="en" style="display:none">Silk cord necklaces</li>
+        <li class="jp">一点もの / 限定数</li>
+        <li class="en" style="display:none">One-of-a-kind / limited pieces</li>
+      </ul>
+    </div>
+
+  </div>
+
+
+</section>
+
+<!-- STORY -->
+<section class="story" id="story">
+  <div class="story-inner">
+    <p class="section-label"><span class="jp">— ストーリー / OUR STORY</span><span class="en" style="display:none">— OUR STORY</span></p>
+    <h2 class="jp">糸が語る、<br><em>奄美</em>の記憶</h2>
+    <h2 class="en" style="display:none">The thread speaks of<br><em>Amami's</em> memory</h2>
+    <p class="story-sub jp">山本繊維が紡いできた、本物の物語</p>
+    <p class="story-sub en" style="display:none">The authentic story Yamamoto Textiles has woven</p>
+    <div class="story-divider"></div>
+    <p class="jp">山本繊維は、福岡を拠点に大島紬専門の撚糸工場として、奄美大島・鹿児島の織元や染色職人たちとともに歩んできました。BtoB取引を通じて生まれた反物は、奄美の職人によるカッチ染が生む、深みのある独自の黒を持ち、その価値は着物の世界に留まるには惜しいものでした。</p>
+    <p class="en" style="display:none">Based in Fukuoka, Yamamoto Textiles has walked alongside weavers and dye craftspeople across Amami Oshima and Kagoshima as a specialized yarn-twisting factory for Oshima Tsumugi. The fabric born through B2B trade carries a distinctive Kachi-dyed black that synthetic dyes can never replicate — a value too precious to remain confined to the world of kimono.</p>
+    <div class="story-quote">
+      <p class="jp">"着物のルールから切り離し、洋装として仕立てることで、この素材は新しい人生を歩み始める。"</p>
+      <p class="en" style="display:none">"Freed from the conventions of kimono, tailored into Western dress, this material begins a new life."</p>
+    </div>
+    <p class="jp">伝統素材が持つ本来の価値を、現代の暮らしへ。この素材と出会う人の数を増やしていきたい。</p>
+    <p class="en" style="display:none">Bringing the true value of traditional materials into modern life. By elevating the one-of-a-kind blacks and colors created by Amami's dye craftspeople into ceremonial dress, fragrance sachets, and accessories, we hope to multiply the number of people who encounter these materials. We are now beginning to explore the infinite possibilities within a single thread.</p>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="contact-bg"></div>
+  <div class="contact-inner">
+    <div>
+      <p class="section-label"><span class="jp">— お問い合わせ / CONTACT</span><span class="en" style="display:none">— GET IN TOUCH</span></p>
+      <h2>
+        <span class="jp" style="display:block;font-family:'Noto Serif JP';font-size:16px;font-weight:200;color:var(--gold);letter-spacing:6px;margin-bottom:8px">お問い合わせ</span>
+        <span class="en" style="display:none;font-family:'Noto Serif JP';font-size:16px;font-weight:200;color:var(--gold);letter-spacing:6px;margin-bottom:8px">CONTACT</span>
+        <em style="font-family:'Cormorant Garamond';font-size:clamp(32px,4vw,48px);font-weight:300;color:var(--gold)">Get in Touch</em>
+      </h2>
+      <p class="contact-lead jp">素材について、お取引について、製品についてのご相談はお気軽にどうぞ。一つひとつのご質問に、誠実にお答えします。</p>
+      <p class="contact-lead en" style="display:none">For inquiries about our materials, business dealings, or products, please feel free to reach out. We respond to every question with sincerity.</p>
+      <div class="contact-info">
+        <div class="contact-item">
+          <div class="contact-item-label jp">会社名</div>
+          <div class="contact-item-label en" style="display:none">COMPANY</div>
+          <div class="contact-item-value jp">株式会社 山本繊維</div>
+          <div class="contact-item-value en" style="display:none">Yamamoto Textiles Co., Ltd.</div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-label jp">所在地</div>
+          <div class="contact-item-label en" style="display:none">LOCATION</div>
+          <div class="contact-item-value jp">福岡県 福岡市<br>（詳細はお問い合わせください）</div>
+          <div class="contact-item-value en" style="display:none">Fukuoka City, Fukuoka<br>(Details upon inquiry)</div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-label jp">取扱素材</div>
+          <div class="contact-item-label en" style="display:none">MATERIALS</div>
+          <div class="contact-item-value jp">大島紬専門の撚糸工場<br>取引先：奄美大島・鹿児島の織元</div>
+          <div class="contact-item-value en" style="display:none">Specialized Yarn-Twisting Factory for Oshima Tsumugi<br>Partners: Weavers across Amami Oshima & Kagoshima</div>
+        </div>
+      </div>
+    </div>
+    <div class="contact-form">
+      <div class="form-group">
+        <label class="form-label"><span class="jp">お名前</span><span class="en" style="display:none">NAME</span></label>
+        <input type="text" class="form-input">
+      </div>
+      <div class="form-group">
+        <label class="form-label"><span class="jp">メールアドレス</span><span class="en" style="display:none">EMAIL</span></label>
+        <input type="email" class="form-input">
+      </div>
+      <div class="form-group">
+        <label class="form-label"><span class="jp">お問い合わせ種別</span><span class="en" style="display:none">INQUIRY TYPE</span></label>
+        <input type="text" class="form-input jp" placeholder="素材 / お取引 / 製品 / その他">
+        <input type="text" class="form-input en" style="display:none" placeholder="Materials / Business / Products / Other">
+      </div>
+      <div class="form-group">
+        <label class="form-label"><span class="jp">メッセージ</span><span class="en" style="display:none">MESSAGE</span></label>
+        <textarea class="form-textarea"></textarea>
+      </div>
+      <button class="form-btn"><span class="jp">送信する →</span><span class="en" style="display:none">Send Message →</span></button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">
+    YAMAMOTO TEXTILES
+    <span class="jp">山本繊維 © 2025</span>
+    <span class="en" style="display:none">Yamamoto Textiles © 2025</span>
+  </div>
+  <div class="footer-copy jp">奄美大島の糸から生まれる、本物の価値</div>
+  <div class="footer-copy en" style="display:none">Authentic value born from the threads of Amami Oshima</div>
+</footer>
+
+<script>
+function setLang(lang) {
+  const btns = document.querySelectorAll('.lang-btn');
+  const isEn = lang === 'en';
+
+  document.querySelectorAll('.jp, .en').forEach(el => {
+    const isEnEl = el.classList.contains('en');
+    const shouldShow = isEn ? isEnEl : !isEnEl;
+    if (shouldShow) {
+      el.style.removeProperty('display');
+      // 一部要素はもともとblock以外なので強制的に表示
+      if (getComputedStyle(el).display === 'none') {
+        el.style.display = 'inline';
+      }
+    } else {
+      el.style.setProperty('display', 'none', 'important');
+    }
+  });
+
+  btns[0].classList.toggle('active', !isEn);
+  btns[1].classList.toggle('active', isEn);
+}
+</script>
+
+</body>
+</html>
